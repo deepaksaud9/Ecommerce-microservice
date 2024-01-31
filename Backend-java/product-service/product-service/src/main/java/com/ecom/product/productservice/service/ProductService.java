@@ -12,4 +12,8 @@ public interface ProductService {
     List<Product> getAllProducts();
 
     Product addProduct(Product product);
+
+    Product updateProduct(Long productId, Product product);
+
+    String deleteProduct(Long productId);
 }

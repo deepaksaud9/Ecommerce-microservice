@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.rmi.AlreadyBoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,5 +54,36 @@ public class ProductServiceImpl implements ProductService{
         Product product1 = productRepository.save(product);
 
         return product1;
+    }
+
+    @Override
+    public Product updateProduct(Long productId, Product product) {
+
+        Optional<Product> productById = productRepository.findById(productId);
+        if (!productById.isPresent()){
+            throw new NotFoundException("this productId is not present in the Database");
+        }
+
+        Product updateProduct = new Product();
+        updateProduct.setProductName(product.getProductName());
+        updateProduct.setTitle(product.getTitle());
+        updateProduct.setProductDescription(product.getProductDescription());
+        updateProduct.setModifiedDate(LocalDateTime.now());
+
+        Product updatedProduct = productRepository.save(updateProduct);
+
+        return updatedProduct;
+    }
+
+    @Override
+    public String deleteProduct(Long productId) {
+
+        Optional<Product> product = productRepository.findById(productId);
+        if (!product.isPresent()){
+            throw new NotFoundException("this product Id is not found");
+        }
+         productRepository.deleteById(productId);
+
+        return "deleted Successfully";
     }
 }
