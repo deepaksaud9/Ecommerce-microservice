@@ -1,5 +1,6 @@
 package com.ecom.product.productservice.controller;
 
+import com.ecom.product.productservice.exception.NotFoundException;
 import com.ecom.product.productservice.model.Product;
 import com.ecom.product.productservice.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/getProductById/{productId)")
-    public ResponseEntity<Product> getProductById(Long productId){
+    @GetMapping("/getProductById/{productId}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long productId){
 
         Product product = productService.productById(productId);
         return new ResponseEntity<>(product, HttpStatus.OK);
