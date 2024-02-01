@@ -15,7 +15,6 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService{
 
-
     private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository){
@@ -36,7 +35,6 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> getAllProducts() {
 
         List<Product> products = productRepository.findAll();
-
         if (products.isEmpty()){
             throw new NotFoundException("no data found in database");
         }
@@ -46,12 +44,16 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product addProduct(Product product) {
 
-        Optional<Product> getProductById = productRepository.findById(product.getProductId());
-        if (getProductById.isPresent()){
-            throw new AlreadyFoundException("this Id is present in the database");
-        }
+        /*Optional<Product> getProductById = productRepository.findById(product.getProductId());
+        if (!getProductById.isPresent()){
+            throw new AlreadyFoundException("this Id is already present in the database");
+        }*/
+        Product product1 = new Product();
 
-        Product product1 = productRepository.save(product);
+        product1.setCreatedDate(LocalDateTime.now());
+
+                productRepository.save(product);
+
 
         return product1;
     }
@@ -59,19 +61,19 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product updateProduct(Long productId, Product product) {
 
-        Optional<Product> productById = productRepository.findById(productId);
-        if (!productById.isPresent()){
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if (!optionalProduct.isPresent()){
             throw new NotFoundException("this productId is not present in the Database");
         }
 
-        Product updateProduct = new Product();
+        Product updateProduct = optionalProduct.get();
         updateProduct.setProductName(product.getProductName());
         updateProduct.setTitle(product.getTitle());
         updateProduct.setProductDescription(product.getProductDescription());
         updateProduct.setModifiedDate(LocalDateTime.now());
+        updateProduct.setProductPrice(product.getProductPrice());
 
         Product updatedProduct = productRepository.save(updateProduct);
-
         return updatedProduct;
     }
 
@@ -86,4 +88,7 @@ public class ProductServiceImpl implements ProductService{
 
         return "deleted Successfully";
     }
+
+
+
 }
