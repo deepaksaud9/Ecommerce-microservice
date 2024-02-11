@@ -50,9 +50,7 @@ public class ProductServiceImpl implements ProductService{
         }*/
         Product product1 = new Product();
 
-        product1.setCreatedDate(LocalDateTime.now());
-
-                productRepository.save(product);
+        productRepository.save(product);
 
 
         return product1;
@@ -70,7 +68,6 @@ public class ProductServiceImpl implements ProductService{
         updateProduct.setProductName(product.getProductName());
         updateProduct.setTitle(product.getTitle());
         updateProduct.setProductDescription(product.getProductDescription());
-        updateProduct.setModifiedDate(LocalDateTime.now());
         updateProduct.setProductPrice(product.getProductPrice());
 
         Product updatedProduct = productRepository.save(updateProduct);

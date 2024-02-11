@@ -1,11 +1,11 @@
 package com.ecom.product.productservice.model;
-
+import com.ecom.common.model.Auditable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -35,6 +35,4 @@ public class Product extends Auditable<String> implements Serializable {
     @Column(name = "product_price",nullable = false)
     private BigDecimal productPrice;
 
-   /* @Column(name = "product_image")
-    private MultipartFile photo;*/
 }
