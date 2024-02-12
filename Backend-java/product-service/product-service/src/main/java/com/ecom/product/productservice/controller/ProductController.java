@@ -1,6 +1,8 @@
 package com.ecom.product.productservice.controller;
 
+import com.ecom.common.dto.ProductResponse;
 import com.ecom.product.productservice.exception.NotFoundException;
+import com.ecom.product.productservice.helper.ProductHelper;
 import com.ecom.product.productservice.model.Product;
 import com.ecom.product.productservice.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,10 @@ public class ProductController {
     }
 
     @GetMapping("/getProductById/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId){
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long productId){
 
-        Product product = productService.productById(productId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        ProductResponse productResponse = ProductHelper.productToProductResponse(productService.productById(productId));
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 
     @GetMapping("/getAllProducts")

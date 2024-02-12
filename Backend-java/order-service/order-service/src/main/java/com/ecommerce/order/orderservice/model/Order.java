@@ -33,6 +33,4 @@ public class Order extends Auditable<String> implements Serializable {
     @Column(name = "order_price")
     private BigDecimal orderPrice;
 
-//    private String userDetails;
-
 }
