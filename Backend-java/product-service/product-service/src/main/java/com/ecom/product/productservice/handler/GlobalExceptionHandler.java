@@ -15,7 +15,7 @@ public class GlobalExceptionHandler extends RuntimeException{
 
         ApiResponse apiResponse = new ApiResponse(notFoundException.getMessage(),HttpStatus.BAD_REQUEST.value() );
 
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST );
 
     }
 
